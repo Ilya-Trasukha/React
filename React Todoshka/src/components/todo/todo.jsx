@@ -5,10 +5,10 @@ import SearchTodo from "../search-todo";
 import "./index";
 
 const initialTodoList = [
-  { id: 0, label: "Lern React", important: false, done: false, delete: false },
-  { id: 1, label: "Lern JS", important: false, done: false, delete: false },
-  { id: 2, label: "Lern HTML", important: false, done: false, delete: false },
-  { id: 3, label: "Lern CSS", important: false, done: false, delete: false }
+  { id: 0, label: "Lern React", important: false, done: false},
+  { id: 1, label: "Lern JS", important: false, done: false},
+  { id: 2, label: "Lern HTML", important: false, done: false},
+  { id: 3, label: "Lern CSS", important: false, done: false}
 ];
 
 export default class Todo extends React.Component {
@@ -29,6 +29,19 @@ export default class Todo extends React.Component {
       this.setState({ ...this.state, todoList: arr });
     };
   };
+  handlerDone = (id) => {
+    return (_e) => {
+      _e.stopPropagation();
+      const arr = this.state.todoList.map((el) => {
+        if (el.id === id) {
+          return { ...el, done: !el.done };
+        } else {
+          return el;
+        }
+      });
+      this.setState({ ...this.state, todoList: arr });
+    };
+  };
   handlerAddTodo = (taskName) => {
     const idx = this.state.todoList.at(-1).id;
     this.setState((prevState) => ({
@@ -41,12 +54,9 @@ export default class Todo extends React.Component {
   };
   handlerDelete = (id) => {
     return (_e) => {
+      _e.stopPropagation();
       const arr = this.state.todoList.filter((el) => {
-        if (el.id === id) {
-          return { ...el, delete: !el.delete };
-        } else {
-          return el;
-        }
+        return el.id !== id 
       });
       this.setState({ ...this.state, todoList: arr });
     };
@@ -74,7 +84,12 @@ export default class Todo extends React.Component {
           value={this.state.term}
           handlerChange={this.handlerSearch}
         />
-        <TodoList todoList={todos} handlerImportant={this.handlerImportant} handlerDelete={this.handlerDelete} />
+        <TodoList 
+          todoList={todos} 
+          handlerImportant={this.handlerImportant} 
+          handlerDelete={this.handlerDelete}
+          handlerDone={this.handlerDone} 
+          />
         <hr />
         <AddTodo handlerAddTodo={this.handlerAddTodo} />
       </div>

@@ -6,10 +6,12 @@
   border-radius: 5px;
   padding: 5px;
   margin-bottom: 10px;
+
   .nav {
     display: flex;
     align-items: center;
   }
+
   .red {
     width: 15px;
     height: 15px;
@@ -17,15 +19,21 @@
     border-radius: 50%;
     background-color: tomato;
   }
+
   .check {
     margin-left: 15px;
     margin-right: 10px;
     cursor: pointer;
   }
+
   .remove {
     margin-left: 15px;
     margin-right: 10px;
     cursor: pointer;
     font-size: 30px;
+  }
+
+  .done {
+    text-decoration: line-through;
   }
 }

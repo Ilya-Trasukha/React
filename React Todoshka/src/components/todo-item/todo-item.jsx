@@ -6,33 +6,22 @@ export default class TodoItem extends React.Component {
     item: { id: 0, label: "test", important: false, done: false },
     handlerImportant: () => {},
     handlerDelete: () => {},
+    handlerDone: () => {}
   };
   render() {
-    const { item, handlerImportant,handlerDelete } = this.props;
+    const { item, handlerImportant,handlerDelete, handlerDone } = this.props;
 
     return (
       <div className="todo-item" onClick={handlerImportant}>
-        {item.label}
+        <div className={item.done ? 'done' : ''}>{item.label}</div>
         <div className="nav">
           {item.important && <div className="red" />}
-          <div
-            className="check"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
+          <div className="check" onClick={handlerDone}>
             ✓
           </div>
-          <div onClick={handlerDelete}>
-          <div className="remove"
-            onClick={(e) => {
-            e.stopPropagation();
-          }} 
-          >
+          <div className="remove" onClick={handlerDelete}>
           🗑
-          </div>
-          </div>
-          
+          </div>  
         </div>
       </div>
     );
