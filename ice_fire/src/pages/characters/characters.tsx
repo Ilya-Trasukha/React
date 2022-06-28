@@ -56,7 +56,7 @@ export default class character extends React.Component<TProps, TState> {
     this.getCharacters();
   }
 
-  handlerPage = (type: "left" | "right") => {
+  handlerPage = (type: "left" | "right") => () => {
     if (type === "left" && this.state.page > 1) {
       this.setState({ page: this.state.page - 1 });
     } else {
@@ -87,7 +87,11 @@ export default class character extends React.Component<TProps, TState> {
               <div>
                 <div onClick={handleOpen}> {el.name} </div>  
                   <Modal
-                     open={open}onClose={handleClose}aria-labelledby="modal-modal-title"aria-describedby="modal-modal-description">
+                     open={open}
+                     onClose={handleClose}
+                     aria-labelledby="modal-modal-title"
+                     aria-describedby="modal-modal-description"
+                  >
                     <Box sx={style}>
                       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <div>Name: {el.name}</div> 
@@ -107,12 +111,12 @@ export default class character extends React.Component<TProps, TState> {
           <div className="characters-nav">
             <Button variant="outlined"
               disabled={this.state.page === 1}
-              onClick={(_e: any) => this.handlerPage("left")}
+              onClick={this.handlerPage("left")}
             >
               left
             </Button>
             <Button variant="outlined" 
-              onClick={(_e: any) => this.handlerPage("right")}>
+              onClick={this.handlerPage("right")}>
               right
             </Button>
           </div>
